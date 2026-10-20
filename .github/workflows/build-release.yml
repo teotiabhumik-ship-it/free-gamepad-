@@ -23,6 +23,8 @@ jobs:
           python-version: '3.11'
 
       - name: Install Dependencies
+        env:
+          VGAMEPAD_SKIP_VIGEMBUS_INSTALL: 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller -r pc/requirements.txt
@@ -46,7 +48,14 @@ jobs:
 
       - name: Build Windows Installer (Setup.exe)
         run: |
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer/setup.iss
+          $iscc = (Get-Command iscc -ErrorAction SilentlyContinue).Source
+          if (-not $iscc) {
+            $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          }
+          if (-not (Test-Path $iscc)) {
+            $iscc = "C:\Program Files\Inno Setup 6\ISCC.exe"
+          }
+          & $iscc installer/setup.iss
 
       - name: Create GitHub Release and Upload Binaries
         uses: softprops/action-gh-release@v2
