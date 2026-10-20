@@ -1254,7 +1254,22 @@ class ReceiverApp:
             cursor="hand2",
             command=lambda: self.trigger_update_check(silent=False),
         )
-        self.update_status_btn.pack(side="left", padx=(10, 0))
+        self.update_status_btn.pack(side="left", padx=(8, 0))
+
+        # Create Desktop Shortcut Button
+        self.shortcut_btn = tk.Button(
+            footer_frame,
+            text="📌 Add Shortcut",
+            font=("Segoe UI", 8),
+            bg=self.COLOR_BG,
+            fg=self.COLOR_TEXT_MUTED,
+            activebackground=self.COLOR_CARD,
+            activeforeground="#ffffff",
+            relief="flat",
+            cursor="hand2",
+            command=self.create_desktop_shortcut,
+        )
+        self.shortcut_btn.pack(side="left", padx=(8, 0))
 
         # Emulation Mode Switcher (Sony DualShock vs Xbox 360)
         mode_frame = tk.Frame(footer_frame, bg=self.COLOR_BG)
@@ -1726,6 +1741,50 @@ class ReceiverApp:
             self.event_queue.put(("driver_complete", success, msg))
 
         self.driver_installer.install_in_background(on_status=on_status, on_complete=on_complete)
+
+    def create_desktop_shortcut(self) -> None:
+        """Create a Windows desktop shortcut pointing directly to this application."""
+        if sys.platform != "win32":
+            messagebox.showinfo("Shortcut", "Desktop shortcuts are only supported on Windows.")
+            return
+
+        exe_path = sys.executable if getattr(sys, "frozen", False) else os.path.abspath(sys.argv[0])
+        working_dir = os.path.dirname(exe_path)
+
+        ps_code = f"""
+$desktop = [Environment]::GetFolderPath('Desktop')
+$ws = New-Object -ComObject WScript.Shell
+$lnkPath = Join-Path $desktop 'Remote Gamepad.lnk'
+$s = $ws.CreateShortcut($lnkPath)
+$s.TargetPath = '{exe_path}'
+$s.WorkingDirectory = '{working_dir}'
+$s.Description = 'Remote Gamepad Receiver'
+$s.Save()
+Write-Output $lnkPath
+"""
+        try:
+            result = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", ps_code],
+                capture_output=True,
+                text=True,
+                creationflags=0x08000000,
+                timeout=10,
+            )
+            lnk_path = result.stdout.strip()
+            if os.path.exists(lnk_path):
+                self.append_log(f"[+] Desktop shortcut created: {lnk_path}")
+                messagebox.showinfo(
+                    "Shortcut Created",
+                    f"Desktop shortcut created successfully!\n\nLocation:\n{lnk_path}",
+                )
+            else:
+                messagebox.showwarning(
+                    "Shortcut",
+                    "Could not create desktop shortcut automatically. You can right-click the .exe and select 'Show more options' -> 'Create shortcut'.",
+                )
+        except Exception as exc:
+            self.append_log(f"[!] Shortcut error: {exc}")
+            messagebox.showerror("Shortcut Error", f"Failed to create desktop shortcut:\n{exc}")
 
     def on_close(self) -> None:
         """Gracefully shutdown background server thread, tunnel, and close Tkinter."""
