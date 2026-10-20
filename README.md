@@ -173,7 +173,7 @@ To prevent multiple devices from interfering with your gameplay controls:
 1. **Set your GitHub repository** in [pc/updater_config.json](file:///C:/Users/bhumi/.gemini/antigravity/scratch/remote-gamepad/pc/updater_config.json):
    ```json
    {
-     "github_repo": "your-username/remote-gamepad",
+     "github_repo": "teotiabhumik-ship-it/free-gamepad-",
      "auto_check_on_startup": true
    }
    ```

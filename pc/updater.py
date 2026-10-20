@@ -18,9 +18,9 @@ from typing import Callable, Dict, Optional, Tuple
 
 APP_VERSION = "1.0.0"
 
-# Default GitHub repository - User can change this in config.json or directly here
+# Default GitHub repository
 DEFAULT_CONFIG = {
-    "github_repo": "user/remote-gamepad",
+    "github_repo": "teotiabhumik-ship-it/free-gamepad-",
     "auto_check_on_startup": True,
     "check_interval_hours": 24,
     "custom_manifest_url": "",
