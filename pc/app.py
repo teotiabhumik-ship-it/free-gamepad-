@@ -35,6 +35,15 @@ except ImportError:
         UpdateChecker = None
         UpdateInfo = None
 
+try:
+    from driver_installer import DriverInstaller, is_vigembus_installed
+except ImportError:
+    try:
+        from pc.driver_installer import DriverInstaller, is_vigembus_installed
+    except ImportError:
+        DriverInstaller = None
+        is_vigembus_installed = lambda: False
+
 # ---------------------------------------------------------------------------
 # CLI Arguments & Configuration
 # ---------------------------------------------------------------------------
@@ -219,6 +228,20 @@ class GamepadController:
             self.is_active = False
             self.status_text = "ViGEmBus driver not detected (Dry-run)"
             self.warning_msg = f"ViGEmBus driver error: {exc}. Running in Dry-Run mode."
+
+    def is_driver_missing(self) -> bool:
+        """Return True if controller failed to initialize due to missing ViGEmBus driver."""
+        return (
+            not self.is_active
+            and not self.force_dry_run
+            and self.warning_msg is not None
+            and "ViGEmBus" in self.warning_msg
+        )
+
+    def retry_init(self) -> bool:
+        """Attempt to re-initialize the virtual controller."""
+        self._init_controller(self.mode)
+        return self.is_active
 
     def set_mode(self, new_mode: str) -> None:
         """Switch between 'dualshock' and 'xbox' controller."""
@@ -638,6 +661,12 @@ class ReceiverApp:
         self.pending_update: Optional[UpdateInfo] = None
         self.is_downloading_update = False
 
+        # Automated Driver Installer
+        self.driver_installer = DriverInstaller() if DriverInstaller else None
+        self.driver_banner: Optional[tk.Frame] = None
+        self.driver_install_btn: Optional[tk.Button] = None
+        self.driver_status_lbl: Optional[tk.Label] = None
+
         # Initialize Gamepad controller as Sony DualShock by default
         self.gamepad_ctrl = GamepadController(mode=self.controller_mode, force_dry_run=self.dry_run)
 
@@ -816,28 +845,58 @@ class ReceiverApp:
             length=200,
         )
 
-        # Driver Warning Banner (if dry-run or ViGEmBus missing)
+        # Driver Warning / 1-Click Install Banner (if dry-run or ViGEmBus missing)
+        self.driver_banner = None
         if self.gamepad_ctrl.warning_msg:
-            warn_frame = tk.Frame(
+            self.driver_banner = tk.Frame(
                 main_container,
                 bg=self.COLOR_WARN_BG,
                 highlightbackground=self.COLOR_WARN,
                 highlightthickness=1,
-                padx=8,
-                pady=4,
+                padx=10,
+                pady=8,
             )
-            warn_frame.pack(fill="x", pady=(0, 10))
+            self.driver_banner.pack(fill="x", pady=(0, 10))
+
+            warn_top = tk.Frame(self.driver_banner, bg=self.COLOR_WARN_BG)
+            warn_top.pack(fill="x")
 
             warn_lbl = tk.Label(
-                warn_frame,
+                warn_top,
                 text=f"⚠️ {self.gamepad_ctrl.warning_msg}",
-                font=("Segoe UI", 8, "bold"),
+                font=("Segoe UI", 9, "bold"),
                 fg=self.COLOR_WARN,
                 bg=self.COLOR_WARN_BG,
-                wraplength=480,
+                wraplength=340,
                 justify="left",
             )
-            warn_lbl.pack(anchor="w")
+            warn_lbl.pack(side="left", anchor="w")
+
+            if self.gamepad_ctrl.is_driver_missing() and self.driver_installer:
+                self.driver_install_btn = tk.Button(
+                    warn_top,
+                    text="📥 Install Driver (1-Click)",
+                    font=("Segoe UI", 9, "bold"),
+                    bg=self.COLOR_ACCENT,
+                    fg="#ffffff",
+                    activebackground="#6066d8",
+                    activeforeground="#ffffff",
+                    relief="flat",
+                    padx=10,
+                    pady=4,
+                    cursor="hand2",
+                    command=self._install_driver_clicked,
+                )
+                self.driver_install_btn.pack(side="right", padx=(8, 0))
+
+                self.driver_status_lbl = tk.Label(
+                    self.driver_banner,
+                    text="Required for Windows games to detect controller inputs. No restart required.",
+                    font=("Segoe UI", 8),
+                    fg=self.COLOR_TEXT_MUTED,
+                    bg=self.COLOR_WARN_BG,
+                )
+                self.driver_status_lbl.pack(anchor="w", pady=(4, 0))
 
         # --- 2. Connection Card (IP, Port, URL, QR Code) ---
         self.card = tk.Frame(
@@ -1483,6 +1542,42 @@ class ReceiverApp:
                     self.append_log(f"[!] Update failed: {err}")
                     messagebox.showerror("Update Failed", f"Failed to download update:\n{err}")
 
+                elif kind == "driver_status":
+                    status_text = event[1]
+                    if self.driver_status_lbl:
+                        self.driver_status_lbl.config(text=status_text)
+                    self.append_log(f"[*] Driver setup: {status_text}")
+
+                elif kind == "driver_complete":
+                    success = event[1]
+                    msg = event[2]
+                    self.append_log(f"[*] Driver setup result: {msg}")
+                    if success:
+                        self.gamepad_ctrl.retry_init()
+                        if self.gamepad_ctrl.is_active:
+                            self.ctrl_status_lbl.config(
+                                text=f"Controller: {self.gamepad_ctrl.status_text}",
+                                fg=self.COLOR_GREEN,
+                            )
+                            if self.driver_banner:
+                                self.driver_banner.destroy()
+                                self.driver_banner = None
+                            messagebox.showinfo(
+                                "Driver Installed",
+                                "ViGEmBus driver has been installed successfully!\n\nYour virtual PlayStation / Xbox controller is now active and ready for your PC games.",
+                            )
+                        else:
+                            messagebox.showwarning(
+                                "Driver Installed",
+                                "ViGEmBus was installed, but controller detection requires an app restart.\nPlease close and restart Remote Gamepad.",
+                            )
+                    else:
+                        if self.driver_install_btn:
+                            self.driver_install_btn.config(state="normal", text="📥 Install Driver (1-Click)")
+                        if self.driver_status_lbl:
+                            self.driver_status_lbl.config(text=f"Error: {msg}", fg="#ff6b81")
+                        messagebox.showerror("Driver Installation", f"Could not install ViGEmBus automatically:\n\n{msg}")
+
         except queue.Empty:
             pass
         finally:
@@ -1612,6 +1707,25 @@ class ReceiverApp:
             on_success=on_succ,
             on_error=on_err,
         )
+
+    def _install_driver_clicked(self) -> None:
+        """Trigger 1-click background installation of ViGEmBus driver."""
+        if not self.driver_installer or self.driver_installer.is_busy:
+            return
+
+        if self.driver_install_btn:
+            self.driver_install_btn.config(state="disabled", text="Installing...")
+        if self.driver_status_lbl:
+            self.driver_status_lbl.config(text="Starting driver setup...", fg="#ffffff")
+        self.append_log("[*] Starting automated ViGEmBus driver installation...")
+
+        def on_status(msg: str):
+            self.event_queue.put(("driver_status", msg))
+
+        def on_complete(success: bool, msg: str):
+            self.event_queue.put(("driver_complete", success, msg))
+
+        self.driver_installer.install_in_background(on_status=on_status, on_complete=on_complete)
 
     def on_close(self) -> None:
         """Gracefully shutdown background server thread, tunnel, and close Tkinter."""

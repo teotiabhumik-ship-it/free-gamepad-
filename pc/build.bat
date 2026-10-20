@@ -16,12 +16,14 @@ if exist "dist" rmdir /s /q "dist"
 echo [3/3] Compiling standalone one-file executable...
 pyinstaller --noconfirm --onefile --windowed ^
     --name "RemoteGamepadReceiver" ^
+    --icon="app.ico" ^
     --add-data "../static;static" ^
     --hidden-import="aiohttp" ^
     --hidden-import="qrcode" ^
     --hidden-import="PIL" ^
     --hidden-import="PIL.ImageTk" ^
     --hidden-import="updater" ^
+    --hidden-import="driver_installer" ^
     app.py
 
 if %ERRORLEVEL% equ 0 (

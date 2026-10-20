@@ -67,32 +67,49 @@ remote-gamepad/
 
 ---
 
-## 🖥️ Windows App — Setup & Build
+## 🚀 Easy Download & Quick Start (No Python or Dependencies Needed!)
 
-### Prerequisites
-1. **ViGEmBus driver** — [download here](https://github.com/nefarius/ViGEmBus/releases)
-2. **Python 3.8+**
+You **do NOT need to install Python, pip, or any programming tools** to use Remote Gamepad.
 
-### Run from source
+### 📥 1. Download for Windows
+Head over to the **[Latest GitHub Releases](https://github.com/teotiabhumik-ship-it/free-gamepad-/releases/latest)**:
+- **Portable App (`RemoteGamepadReceiver.exe`)**: No installation required. Just double-click and run!
+- **Windows Setup (`RemoteGamepad-Setup.exe`)**: Standard installer with Start Menu and Desktop shortcuts.
+
+### 🎮 2. Automated Driver Setup (1-Click)
+Windows games need the virtual gamepad driver (ViGEmBus) to recognize inputs:
+- If you don't already have it, Remote Gamepad will display an **`[📥 Install Driver (1-Click)]`** button directly inside the app.
+- Click it, and the app will automatically download, install, and activate the controller for you!
+
+### 📱 3. Connect Any Phone (Zero App Installation)
+1. Run `RemoteGamepadReceiver.exe` on your PC.
+2. Scan the on-screen QR code with your phone's camera (or open the displayed URL in Chrome/Safari).
+3. *(Optional)* Tap **"Add to Home Screen"** on your phone to run the controller fullscreen like an installed app.
+4. Start gaming on PCSX2, RetroArch, Steam, or any PC game!
+
+---
+
+## 🛠️ For Developers & Running from Source
+
+If you cloned this repository and want to run from source:
+
+### Easiest: 1-Click Launcher
+Just double-click **[`QuickStart.bat`](QuickStart.bat)** in the root folder!  
+It automatically sets up a clean virtual environment, installs requirements, and launches the app.
+
+### Manual Setup:
 ```bash
-cd pc
-pip install -r requirements.txt
-python app.py
+python -m venv .venv
+.venv\Scripts\pip install -r pc/requirements.txt
+.venv\Scripts\python pc/app.py
 ```
 
-### Build standalone .exe
-```bash
+### Build Standalone .EXE
+```cmd
 cd pc
 build.bat
 ```
-→ Produces `dist/RemoteGamepad.exe`
-
-### Features
-- Dark-themed GUI with your IP address in large text
-- QR code for quick phone connection
-- Live connection log
-- Start/Stop server toggle
-- Auto-fallback to dry-run mode if ViGEmBus isn't installed
+→ Produces `dist/RemoteGamepadReceiver.exe`
 
 ---
 
