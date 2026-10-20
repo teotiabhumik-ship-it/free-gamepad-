@@ -35,6 +35,7 @@ jobs:
           pyinstaller --noconfirm --onefile --windowed `
             --name "RemoteGamepadReceiver" `
             --icon="pc/app.ico" `
+            --version-file="pc/file_version_info.txt" `
             --add-data "static;static" `
             --hidden-import="aiohttp" `
             --hidden-import="qrcode" `

@@ -17,6 +17,7 @@ echo [3/3] Compiling standalone one-file executable...
 pyinstaller --noconfirm --onefile --windowed ^
     --name "RemoteGamepadReceiver" ^
     --icon="app.ico" ^
+    --version-file="file_version_info.txt" ^
     --add-data "../static;static" ^
     --hidden-import="aiohttp" ^
     --hidden-import="qrcode" ^
