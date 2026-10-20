@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "release_date": "2026-10-20",
+  "download_url": "https://github.com/user/remote-gamepad/releases/latest/download/RemoteGamepadReceiver.exe",
+  "changelog": [
+    "Initial Release with DualShock 2 authentic layout",
+    "Dedicated AUTO-O rapid fire button",
+    "Invert-Y toggle and zero-config internet tunnel",
+    "Strict 1-User limit with Player 1 Kick control",
+    "Built-in 1-click Windows Auto-Updater"
+  ],
+  "mandatory": false
+}

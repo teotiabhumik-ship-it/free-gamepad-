@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+build/
+dist/
+*.log
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Android build outputs and IDE
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+.gradle/
+
+# OS and Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Remote Gamepad</string>
+    <string name="app_title">🎮 Remote Gamepad</string>
+    <string name="app_subtitle">Virtual Xbox 360 controller for PC</string>
+    <string name="ip_label">PC IP Address</string>
+    <string name="ip_hint">PC IP Address e.g. 192.168.1.42</string>
+    <string name="port_label">Port</string>
+    <string name="port_hint">Port</string>
+    <string name="port_default">8888</string>
+    <string name="connect">CONNECT</string>
+    <string name="status_ready">Enter PC IP address and tap CONNECT</string>
+    <string name="status_invalid_ip">Please enter a valid IP address</string>
+    <string name="status_connecting">Connecting to controller server…</string>
+</resources>

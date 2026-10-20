@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#00050d">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>🎮 PlayStation DualShock Layout</title>
+<style>
+/* ===================================================================
+   MONECT COMMUNITY PLAYSTATION LAYOUT - RETRO-NEON CYAN THEME
+   =================================================================== */
+:root {
+  --bg-color:       #00050d;
+  --cyan-border:    #0099e6;
+  --cyan-glow:      rgba(0, 153, 230, 0.45);
+  --btn-bg:         rgba(2, 12, 24, 0.85);
+  --btn-active-bg:  rgba(0, 153, 230, 0.35);
+  --inner-circle:   #0e1116;
+  --inner-border:   #1a1f29;
+  
+  /* PlayStation Symbol Colors from Monect Skin */
+  --ps-triangle:    #2ee68a;
+  --ps-circle:      #e63946;
+  --ps-cross:       #4a90e2;
+  --ps-square:      #c850c0;
+
+  /* Blue Glowing Orb Analog Sticks */
+  --orb-core:       #00d4ff;
+  --orb-mid:        #0072ff;
+  --orb-deep:       #002b80;
+  --stick-ring:     #0055d4;
+
+  /* Sizing Units based on viewport height */
+  --box-size:       min(70px, 16vw, 17vh);
+  --stick-housing:  min(125px, 26vw, 28vh);
+  --stick-knob:     min(66px, 14vw, 15vh);
+  --shoulder-w:     min(115px, 22vw, 24vh);
+  --shoulder-h:     min(56px, 11vw, 12vh);
+  --pill-w:         min(110px, 21vw, 23vh);
+  --pill-h:         min(48px, 9vw, 10vh);
+  --small-box:      min(48px, 10vw, 11vh);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-color);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Master Screen Container */
+.monect-pad {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #00050d;
+  display: flex;
+  justify-content: space-between;
+  padding: env(safe-area-inset-top, 6px) env(safe-area-inset-right, 14px) env(safe-area-inset-bottom, 8px) env(safe-area-inset-left, 14px);
+}
+
+/* Base Neon Cyan Box Container */
+.cyan-box {
+  background: var(--btn-bg);
+  border: 2px solid var(--cyan-border);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 153, 230, 0.2), inset 0 0 6px rgba(0, 153, 230, 0.1);
+  transition: transform 0.05s ease, background 0.05s ease, box-shadow 0.05s ease;
+  position: absolute;
+}
+.cyan-box.active {
+  background: var(--btn-active-bg);
+  box-shadow: 0 0 18px rgba(0, 153, 230, 0.8), inset 0 0 12px rgba(0, 153, 230, 0.5);
+  transform: scale(0.96);
+}
+
+/* Left & Right Master Wings */
+.pad-wing {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+/* ===================================================================
+   TOP SHOULDERS (L2, L1 / R1, R2)
+   =================================================================== */
+.btn-l2 {
+  left: 2%;
+  top: 3%;
+  width: var(--shoulder-w);
+  height: var(--shoulder-h);
+}
+.btn-l1 {
+  left: calc(2% + var(--shoulder-w) + 8px);
+  top: 3%;
+  width: var(--shoulder-w);
+  height: var(--shoulder-h);
+}
+
+.btn-r2 {
+  right: 2%;
+  top: 3%;
+  width: var(--shoulder-w);
+  height: var(--shoulder-h);
+}
+.btn-r1 {
+  right: calc(2% + var(--shoulder-w) + 8px);
+  top: 3%;
+  width: var(--shoulder-w);
+  height: var(--shoulder-h);
+}
+
+.shoulder-label {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+/* ===================================================================
+   L3 & R3 BUTTONS (Dedicated pill containers above sticks/clusters)
+   =================================================================== */
+.btn-l3 {
+  left: calc(2% + var(--shoulder-w) + 18px);
+  top: calc(3% + var(--shoulder-h) + 12px);
+  width: var(--small-box);
+  height: var(--small-box);
+  border-radius: 12px;
+}
+.btn-r3 {
+  right: calc(2% + var(--shoulder-w) + 18px);
+  top: calc(3% + var(--shoulder-h) + 12px);
+  width: var(--small-box);
+  height: var(--small-box);
+  border-radius: 12px;
+}
+
+.round-cap {
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #222730, #090b0e);
+  border: 1px solid #333a47;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 3px 6px rgba(0,0,0,0.8);
+  font-size: 13px;
+  font-weight: 900;
+  color: #ffffff;
+  pointer-events: none;
+}
+.active .round-cap {
+  background: #0072ff;
+  box-shadow: 0 0 10px #00d4ff;
+}
+
+/* ===================================================================
+   D-PAD (Separated cyan boxes with directional inner plates)
+   =================================================================== */
+.dpad-center-x {
+  left: calc(2% + var(--box-size) + 8px);
+}
+.dpad-center-y {
+  top: 45%;
+}
+
+.dpad-up {
+  left: calc(2% + var(--box-size) + 6px);
+  top: calc(45% - var(--box-size) - 6px);
+  width: var(--box-size);
+  height: var(--box-size);
+}
+.dpad-left {
+  left: 2%;
+  top: 45%;
+  width: var(--box-size);
+  height: var(--box-size);
+}
+.dpad-right {
+  left: calc(2% + (var(--box-size) * 2) + 12px);
+  top: 45%;
+  width: var(--box-size);
+  height: var(--box-size);
+}
+.dpad-down {
+  left: calc(2% + var(--box-size) + 6px);
+  top: calc(45% + var(--box-size) + 6px);
+  width: var(--box-size);
+  height: var(--box-size);
+}
+
+.dpad-arrow-plate {
+  width: 70%;
+  height: 70%;
+  background: #14171d;
+  border: 1px solid #232731;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b4252;
+  font-size: 20px;
+  font-weight: 900;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+.active .dpad-arrow-plate {
+  color: #00d4ff;
+  border-color: #0099e6;
+  background: #0d2238;
+}
+
+/* ===================================================================
+   SELECT & START (Cyan Pill Buttons)
+   =================================================================== */
+.btn-select {
+  left: calc(2% + (var(--box-size) * 3) + 20px);
+  top: 45%;
+  width: var(--pill-w);
+  height: var(--pill-h);
+}
+
+.select-plate {
+  border: 1px solid #4a5568;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #cbd5e0;
+  pointer-events: none;
+}
+
+.btn-start {
+  right: calc(2% + (var(--box-size) * 3) + 20px);
+  top: 45%;
+  width: var(--pill-w);
+  height: var(--pill-h);
+}
+
+/* PlayStation iconic wedge start emblem */
+.start-wedge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #718096;
+  border-radius: 4px;
+  padding: 3px 12px 3px 8px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #e2e8f0;
+  position: relative;
+  clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 80% 100%, 0% 100%);
+  background: #12161f;
+  pointer-events: none;
+}
+
+/* ===================================================================
+   TURBO BUTTON (Bottom Left Corner)
+   =================================================================== */
+.btn-turbo {
+  left: 2%;
+  bottom: 4%;
+  width: var(--small-box);
+  height: var(--small-box);
+  border-radius: 12px;
+}
+.turbo-plate {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #4a5568;
+  pointer-events: none;
+}
+.active .turbo-plate {
+  color: #ff9f1c;
+}
+
+/* ===================================================================
+   AUTO-O / AUTO-CIRCLE REPEATER (Bottom Right Corner)
+   =================================================================== */
+.btn-auto-circle {
+  right: 2%;
+  bottom: 4%;
+  width: var(--small-box);
+  height: var(--small-box);
+  border-radius: 12px;
+}
+.auto-circle-plate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+}
+.auto-circle-label {
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #4a5568;
+}
+.auto-circle-glyph {
+  width: 14px;
+  height: 14px;
+  stroke: var(--ps-circle);
+  fill: none;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 2px rgba(255, 77, 109, 0.6));
+}
+.btn-auto-circle.active {
+  border-color: #ff4d6d;
+  box-shadow: 0 0 16px rgba(255, 77, 109, 0.7), inset 0 0 10px rgba(255, 77, 109, 0.4);
+  animation: autoPulse 0.4s infinite alternate;
+}
+.btn-auto-circle.active .auto-circle-label {
+  color: #ff4d6d;
+  text-shadow: 0 0 6px rgba(255, 77, 109, 0.8);
+}
+@keyframes autoPulse {
+  from { opacity: 0.85; }
+  to { opacity: 1; filter: brightness(1.2); }
+}
+
+/* ===================================================================
+   PLAYSTATION ACTION BUTTONS (TRIANGLE, CIRCLE, CROSS, SQUARE)
+   =================================================================== */
+.btn-triangle {
+  right: calc(2% + var(--box-size) + 6px);
+  top: calc(45% - var(--box-size) - 6px);
+  width: var(--box-size);
+  height: var(--box-size);
+}
+.btn-circle {
+  right: 2%;
+  top: 45%;
+  width: var(--box-size);
+  height: var(--box-size);
+}
+.btn-square {
+  right: calc(2% + (var(--box-size) * 2) + 12px);
+  top: 45%;
+  width: var(--box-size);
+  height: var(--box-size);
+}
+.btn-cross {
+  right: calc(2% + var(--box-size) + 6px);
+  top: calc(45% + var(--box-size) + 6px);
+  width: var(--box-size);
+  height: var(--box-size);
+}
+
+/* 3D Circular Concave Button Core inside Cyan Box */
+.ps-button-core {
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #242933 0%, #0d0f14 85%);
+  border: 1.5px solid #2f3644;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.12), 0 4px 8px rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Vector Geometric Glyphs */
+.ps-button-core svg {
+  width: 60%;
+  height: 60%;
+  pointer-events: none;
+}
+
+/* Triangle: Green */
+.btn-triangle svg {
+  stroke: var(--ps-triangle);
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgba(46, 230, 138, 0.7));
+}
+.btn-triangle.active .ps-button-core {
+  background: #0b3820;
+  box-shadow: 0 0 16px var(--ps-triangle);
+}
+
+/* Circle: Red */
+.btn-circle svg {
+  stroke: var(--ps-circle);
+  fill: none;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 3px rgba(230, 57, 70, 0.7));
+}
+.btn-circle.active .ps-button-core {
+  background: #3d0c10;
+  box-shadow: 0 0 16px var(--ps-circle);
+}
+
+/* Cross: Blue */
+.btn-cross svg {
+  stroke: var(--ps-cross);
+  fill: none;
+  stroke-width: 3.8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(74, 144, 226, 0.7));
+}
+.btn-cross.active .ps-button-core {
+  background: #0d284a;
+  box-shadow: 0 0 16px var(--ps-cross);
+}
+
+/* Square: Magenta / Pink */
+.btn-square svg {
+  stroke: var(--ps-square);
+  fill: none;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 3px rgba(200, 80, 192, 0.7));
+}
+.btn-square.active .ps-button-core {
+  background: #380e35;
+  box-shadow: 0 0 16px var(--ps-square);
+}
+
+/* ===================================================================
+   DUAL ANALOG STICKS (Glowing Concentric Rings + 3D Cyan/Blue Orb)
+   =================================================================== */
+.stick-base-left {
+  position: absolute;
+  left: calc(2% + (var(--box-size) * 2) + 20px);
+  bottom: 4%;
+  width: var(--stick-housing);
+  height: var(--stick-housing);
+  border-radius: 50%;
+  border: 3px solid var(--stick-ring);
+  background: radial-gradient(circle, #010814 50%, #00122e 100%);
+  box-shadow: 0 0 15px rgba(0, 85, 212, 0.6), inset 0 0 10px rgba(0, 85, 212, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+.stick-base-right {
+  position: absolute;
+  right: calc(2% + (var(--box-size) * 2) + 20px);
+  bottom: 4%;
+  width: var(--stick-housing);
+  height: var(--stick-housing);
+  border-radius: 50%;
+  border: 3px solid var(--stick-ring);
+  background: radial-gradient(circle, #010814 50%, #00122e 100%);
+  box-shadow: 0 0 15px rgba(0, 85, 212, 0.6), inset 0 0 10px rgba(0, 85, 212, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+}
+
+/* Inner concentric cyan guideline */
+.stick-base-left::after, .stick-base-right::after {
+  content: "";
+  position: absolute;
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 153, 230, 0.25);
+  pointer-events: none;
+}
+
+/* 3D Glowing Blue Orb Knob */
+.stick-knob {
+  position: absolute;
+  width: var(--stick-knob);
+  height: var(--stick-knob);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--orb-core) 0%, var(--orb-mid) 55%, var(--orb-deep) 100%);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.9), 0 0 16px rgba(0, 212, 255, 0.65), inset 0 2px 4px rgba(255,255,255,0.4);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ===================================================================
+   CONNECTION STATUS & FULLSCREEN
+   =================================================================== */
+.status-pill {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 4px 14px;
+  border-radius: 12px;
+  background: rgba(0, 8, 18, 0.85);
+  border: 1px solid var(--cyan-border);
+  box-shadow: 0 0 10px rgba(0, 153, 230, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.status-pill.connected { color: #2ee68a; }
+.status-pill.disconnected { color: #e63946; }
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+}
+.bottom-bar-btn {
+  background: rgba(2, 12, 24, 0.75);
+  border: 1px solid #1a2736;
+  border-radius: 8px;
+  color: #4a5d73;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+.bottom-bar-btn.active {
+  color: #00d4ff;
+  border-color: #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+}
+
+/* Reconnecting Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 3, 8, 0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  gap: 12px;
+  transition: opacity 0.3s;
+}
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #002244;
+  border-top-color: #00d4ff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- Status Pill -->
+<div class="status-pill disconnected" id="statusPill">
+  <span class="status-dot"></span>
+  <span id="statusText">Connecting…</span>
+</div>
+
+<!-- Bottom Control Bar (Fullscreen & Invert Y) -->
+<div class="bottom-bar">
+  <button class="bottom-bar-btn" id="fsBtn" title="Fullscreen">⛶</button>
+  <button class="bottom-bar-btn" id="invertYBtn" title="Toggle Invert Y-Axis">⇅ Invert Y</button>
+</div>
+
+<!-- Connection Overlay -->
+<div class="overlay" id="overlay">
+  <div class="spinner" id="overlaySpinner"></div>
+  <h2 style="font-size:20px;letter-spacing:1px;color:#00d4ff;" id="overlayTitle">PlayStation Pad</h2>
+  <p style="font-size:13px;color:#64748b;text-align:center;padding:0 20px;" id="overlayMsg">Connecting to PC…</p>
+  <button id="overlayRetryBtn" style="display:none;margin-top:8px;background:#00d4ff;color:#001020;border:none;border-radius:20px;font-weight:900;font-size:14px;padding:8px 24px;cursor:pointer;box-shadow:0 0 12px rgba(0,212,255,0.4);">🔄 Try Again</button>
+</div>
+
+<!-- Main Controller Canvas -->
+<div class="monect-pad" id="monectPad">
+
+  <!-- ==================== LEFT WING ==================== -->
+  <div class="pad-wing left-wing">
+    <!-- L2 Shoulder -->
+    <div class="cyan-box btn-l2" data-btn="l2" data-axis="l2">
+      <span class="shoulder-label">L2</span>
+    </div>
+
+    <!-- L1 Shoulder -->
+    <div class="cyan-box btn-l1" data-btn="l1">
+      <span class="shoulder-label">L1</span>
+    </div>
+
+    <!-- L3 Dedicated Button -->
+    <div class="cyan-box btn-l3" data-btn="l3">
+      <div class="round-cap">L3</div>
+    </div>
+
+    <!-- D-Pad Directional Boxes -->
+    <div class="cyan-box dpad-up" data-btn="up">
+      <div class="dpad-arrow-plate">▲</div>
+    </div>
+    <div class="cyan-box dpad-left" data-btn="left">
+      <div class="dpad-arrow-plate">◀</div>
+    </div>
+    <div class="cyan-box dpad-right" data-btn="right">
+      <div class="dpad-arrow-plate">▶</div>
+    </div>
+    <div class="cyan-box dpad-down" data-btn="down">
+      <div class="dpad-arrow-plate">▼</div>
+    </div>
+
+    <!-- SELECT Button -->
+    <div class="cyan-box btn-select" data-btn="select">
+      <div class="select-plate">SELECT</div>
+    </div>
+
+    <!-- TURBO Button -->
+    <div class="cyan-box btn-turbo" id="turboBtn">
+      <div class="turbo-plate">TURBO</div>
+    </div>
+
+    <!-- Left Analog Stick (Glowing Base & 3D Cyan Orb) -->
+    <div class="stick-base-left" data-stick="left" id="stickLeft">
+      <div class="stick-knob" id="knobLeft"></div>
+    </div>
+  </div>
+
+  <!-- ==================== RIGHT WING ==================== -->
+  <div class="pad-wing right-wing">
+    <!-- R1 Shoulder -->
+    <div class="cyan-box btn-r1" data-btn="r1">
+      <span class="shoulder-label">R1</span>
+    </div>
+
+    <!-- R2 Shoulder -->
+    <div class="cyan-box btn-r2" data-btn="r2" data-axis="r2">
+      <span class="shoulder-label">R2</span>
+    </div>
+
+    <!-- R3 Dedicated Button -->
+    <div class="cyan-box btn-r3" data-btn="r3">
+      <div class="round-cap">R3</div>
+    </div>
+
+    <!-- START Button -->
+    <div class="cyan-box btn-start" data-btn="start">
+      <div class="start-wedge">START</div>
+    </div>
+
+    <!-- PlayStation Action Buttons (△ ○ ✕ □) -->
+    <!-- Triangle (△) -->
+    <div class="cyan-box btn-triangle" data-btn="triangle">
+      <div class="ps-button-core">
+        <svg viewBox="0 0 24 24"><polygon points="12,3 22,20 2,20"/></svg>
+      </div>
+    </div>
+
+    <!-- Circle (○) -->
+    <div class="cyan-box btn-circle" data-btn="circle">
+      <div class="ps-button-core">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/></svg>
+      </div>
+    </div>
+
+    <!-- Cross (✕) -->
+    <div class="cyan-box btn-cross" data-btn="cross">
+      <div class="ps-button-core">
+        <svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+      </div>
+    </div>
+
+    <!-- Square (□) -->
+    <div class="cyan-box btn-square" data-btn="square">
+      <div class="ps-button-core">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1.5"/></svg>
+      </div>
+    </div>
+
+    <!-- Right Analog Stick (Glowing Base & 3D Cyan Orb) -->
+    <div class="stick-base-right" data-stick="right" id="stickRight">
+      <div class="stick-knob" id="knobRight"></div>
+    </div>
+
+    <!-- AUTO-O Button (Repeats O / Circle Key) -->
+    <div class="cyan-box btn-auto-circle" id="autoCircleBtn" title="Repeatedly presses O (Circle) Key">
+      <div class="auto-circle-plate">
+        <span class="auto-circle-label">AUTO</span>
+        <svg class="auto-circle-glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/></svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ===================================================================
+   PLAYSTATION STATE & NETWORKING PROTOCOL
+   =================================================================== */
+const state = {
+  b: {
+    cross: 0, circle: 0, square: 0, triangle: 0,
+    l1: 0, r1: 0, select: 0, start: 0,
+    l3: 0, r3: 0, analog: 1,
+    up: 0, down: 0, left: 0, right: 0,
+    // Xbox aliases for universal fallback
+    a: 0, b: 0, x: 0, y: 0,
+    lb: 0, rb: 0, back: 0, ls: 0, rs: 0
+  },
+  a: {
+    lx: 0.0, ly: 0.0,
+    rx: 0.0, ry: 0.0,
+    l2: 0.0, r2: 0.0,
+    lt: 0.0, rt: 0.0
+  }
+};
+
+let dirty = false;
+let turboActive = false;
+
+/* Read host and port from URL query or location */
+const urlParams = new URLSearchParams(window.location.search);
+const host = urlParams.get("host") || window.location.hostname || "127.0.0.1";
+const portParam = urlParams.get("port");
+let port = portParam !== null ? portParam : window.location.port;
+if (!port && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || !window.location.hostname)) {
+  port = "8888";
+}
+
+function getWsUrl() {
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  const portStr = (port && port !== "80" && port !== "443") ? `:${port}` : "";
+  return `${protocol}//${host}${portStr}/ws`;
+}
+
+/* DOM Elements */
+const $statusPill     = document.getElementById("statusPill");
+const $statusText     = document.getElementById("statusText");
+const $overlay        = document.getElementById("overlay");
+const $overlaySpinner = document.getElementById("overlaySpinner");
+const $overlayTitle   = document.getElementById("overlayTitle");
+const $overlayMsg     = document.getElementById("overlayMsg");
+const $overlayRetryBtn= document.getElementById("overlayRetryBtn");
+const $fsBtn          = document.getElementById("fsBtn");
+const $invertYBtn     = document.getElementById("invertYBtn");
+const $turboBtn       = document.getElementById("turboBtn");
+const $autoCircleBtn  = document.getElementById("autoCircleBtn");
+const $circleBtn      = document.querySelector('[data-btn="circle"]');
+let invertY = false;
+
+const $stickLeft  = document.getElementById("stickLeft");
+const $knobLeft   = document.getElementById("knobLeft");
+const $stickRight = document.getElementById("stickRight");
+const $knobRight  = document.getElementById("knobRight");
+
+const allButtons  = document.querySelectorAll("[data-btn]");
+
+/* Haptic Feedback */
+function vibrate(ms = 12) {
+  if (navigator.vibrate) {
+    try { navigator.vibrate(ms); } catch(e){}
+  }
+}
+
+/* ===================================================================
+   WEBSOCKET TRANSMISSION (Coalesced 60 FPS)
+   =================================================================== */
+let ws = null;
+let reconnectDelay = 500;
+const MAX_RECONNECT = 5000;
+
+function scheduleSend() {
+  if (!dirty) {
+    dirty = true;
+    requestAnimationFrame(() => {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(state));
+      }
+      dirty = false;
+    });
+  }
+}
+
+function connect() {
+  if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+    return;
+  }
+
+  const endpoint = getWsUrl();
+  $statusText.textContent = "Connecting…";
+  $statusPill.className = "status-pill disconnected";
+
+  try {
+    ws = new WebSocket(endpoint);
+  } catch (err) {
+    scheduleReconnect();
+    return;
+  }
+
+  ws.onopen = () => {
+    reconnectDelay = 500;
+    $statusText.textContent = "Connected ✓";
+    $statusPill.className = "status-pill connected";
+    $overlay.classList.add("hidden");
+    if ($overlaySpinner) $overlaySpinner.style.display = "block";
+    if ($overlayRetryBtn) $overlayRetryBtn.style.display = "none";
+    if ($overlayTitle) {
+      $overlayTitle.textContent = "PlayStation Pad";
+      $overlayTitle.style.color = "#00d4ff";
+    }
+    scheduleSend();
+  };
+
+  ws.onclose = (e) => {
+    $statusText.textContent = "Disconnected";
+    $statusPill.className = "status-pill disconnected";
+    $overlay.classList.remove("hidden");
+
+    if (e.code === 4001) {
+      // 1-User limit reached: another client is actively connected as Player 1
+      if ($overlaySpinner) $overlaySpinner.style.display = "none";
+      if ($overlayTitle) {
+        $overlayTitle.textContent = "🔒 Controller In Use";
+        $overlayTitle.style.color = "#ffb703";
+      }
+      if ($overlayMsg) {
+        $overlayMsg.innerHTML = "Another player is connected to this PC.<br>Strict 1-player limit is active.";
+      }
+      if ($overlayRetryBtn) $overlayRetryBtn.style.display = "inline-block";
+      // Prevent reconnect spam
+    } else if (e.code === 4000) {
+      // Kicked by PC Host
+      if ($overlaySpinner) $overlaySpinner.style.display = "none";
+      if ($overlayTitle) {
+        $overlayTitle.textContent = "⚠️ Disconnected by Host";
+        $overlayTitle.style.color = "#ff4136";
+      }
+      if ($overlayMsg) {
+        $overlayMsg.textContent = "Your session was disconnected by the host PC.";
+      }
+      if ($overlayRetryBtn) $overlayRetryBtn.style.display = "inline-block";
+      // Prevent reconnect spam
+    } else {
+      if ($overlaySpinner) $overlaySpinner.style.display = "block";
+      if ($overlayTitle) {
+        $overlayTitle.textContent = "PlayStation Pad";
+        $overlayTitle.style.color = "#00d4ff";
+      }
+      const portDisplay = (port && port !== "80" && port !== "443") ? `:${port}` : "";
+      if ($overlayMsg) $overlayMsg.textContent = `Connecting to ${host}${portDisplay}…`;
+      if ($overlayRetryBtn) $overlayRetryBtn.style.display = "none";
+      scheduleReconnect();
+    }
+  };
+
+  ws.onerror = () => {
+    if (ws) ws.close();
+  };
+}
+
+if ($overlayRetryBtn) {
+  $overlayRetryBtn.addEventListener("click", () => {
+    if ($overlaySpinner) $overlaySpinner.style.display = "block";
+    if ($overlayRetryBtn) $overlayRetryBtn.style.display = "none";
+    if ($overlayTitle) {
+      $overlayTitle.textContent = "PlayStation Pad";
+      $overlayTitle.style.color = "#00d4ff";
+    }
+    if ($overlayMsg) $overlayMsg.textContent = "Connecting…";
+    reconnectDelay = 500;
+    connect();
+  });
+}
+
+function scheduleReconnect() {
+  setTimeout(connect, reconnectDelay);
+  reconnectDelay = Math.min(reconnectDelay * 1.5, MAX_RECONNECT);
+}
+
+/* ===================================================================
+   BUTTON LOGIC & DUALSHOCK 2 MAPPING
+   =================================================================== */
+const PS_TO_XBOX = {
+  cross:    "a",
+  circle:   "b",
+  square:   "x",
+  triangle: "y",
+  l1:       "lb",
+  r1:       "rb",
+  select:   "back",
+  start:    "start",
+  l3:       "ls",
+  r3:       "rs"
+};
+
+function pressButton(name) {
+  if (name === "l2") {
+    state.a.l2 = 1.0;
+    state.a.lt = 1.0;
+  } else if (name === "r2") {
+    state.a.r2 = 1.0;
+    state.a.rt = 1.0;
+  } else {
+    state.b[name] = 1;
+    if (PS_TO_XBOX[name]) state.b[PS_TO_XBOX[name]] = 1;
+  }
+  scheduleSend();
+}
+
+function releaseButton(name) {
+  if (name === "l2") {
+    state.a.l2 = 0.0;
+    state.a.lt = 0.0;
+  } else if (name === "r2") {
+    state.a.r2 = 0.0;
+    state.a.rt = 0.0;
+  } else {
+    state.b[name] = 0;
+    if (PS_TO_XBOX[name]) state.b[PS_TO_XBOX[name]] = 0;
+  }
+  scheduleSend();
+}
+
+/* ===================================================================
+   AUTO-O (CIRCLE REPEATER) & TURBO ENGINE
+   =================================================================== */
+let autoCircleActive = false;
+let autoCircleInterval = null;
+const turboRepeatIntervals = new Map();
+
+function startAutoCircle() {
+  if (autoCircleActive) return;
+  autoCircleActive = true;
+  if ($autoCircleBtn) $autoCircleBtn.classList.add("active");
+  vibrate(30);
+
+  let on = false;
+  autoCircleInterval = setInterval(() => {
+    on = !on;
+    if (on) {
+      pressButton("circle");
+      if ($circleBtn) $circleBtn.classList.add("active");
+    } else {
+      releaseButton("circle");
+      if ($circleBtn && !isButtonHeld("circle")) $circleBtn.classList.remove("active");
+    }
+  }, 45); // ~11 rapid presses per second
+}
+
+function stopAutoCircle() {
+  if (!autoCircleActive) return;
+  autoCircleActive = false;
+  if (autoCircleInterval) {
+    clearInterval(autoCircleInterval);
+    autoCircleInterval = null;
+  }
+  if ($autoCircleBtn) $autoCircleBtn.classList.remove("active");
+  if ($circleBtn && !isButtonHeld("circle")) $circleBtn.classList.remove("active");
+  releaseButton("circle");
+  vibrate(15);
+}
+
+function toggleAutoCircle() {
+  if (autoCircleActive) {
+    stopAutoCircle();
+  } else {
+    startAutoCircle();
+  }
+}
+
+function toggleTurbo() {
+  turboActive = !turboActive;
+  if ($turboBtn) $turboBtn.classList.toggle("active", turboActive);
+  vibrate(25);
+  if (!turboActive) {
+    for (const [name, iv] of turboRepeatIntervals.entries()) {
+      clearInterval(iv);
+      releaseButton(name);
+    }
+    turboRepeatIntervals.clear();
+  }
+}
+
+function startTurboRepeat(name) {
+  if (turboRepeatIntervals.has(name)) return;
+  pressButton(name);
+  let on = true;
+  const iv = setInterval(() => {
+    on = !on;
+    if (on) {
+      pressButton(name);
+    } else {
+      releaseButton(name);
+    }
+  }, 45);
+  turboRepeatIntervals.set(name, iv);
+}
+
+function stopTurboRepeat(name) {
+  if (turboRepeatIntervals.has(name)) {
+    clearInterval(turboRepeatIntervals.get(name));
+    turboRepeatIntervals.delete(name);
+  }
+  releaseButton(name);
+}
+
+function isButtonHeld(name) {
+  for (const [, btnName] of touchButtonMap.entries()) {
+    if (btnName === name) return true;
+  }
+  return false;
+}
+
+// Bind clicks/taps to Turbo and Auto-O buttons
+function attachButtonToggle(el, fn) {
+  if (!el) return;
+  el.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    fn();
+  });
+}
+attachButtonToggle($turboBtn, toggleTurbo);
+attachButtonToggle($autoCircleBtn, toggleAutoCircle);
+
+/* ===================================================================
+   MULTI-TOUCH BUTTON TRACKING (Touch & Pointer Support)
+   =================================================================== */
+const touchButtonMap = new Map(); // TouchID -> buttonName
+
+function getBtnFromPoint(x, y) {
+  const el = document.elementFromPoint(x, y);
+  if (!el) return null;
+  return el.closest("[data-btn]");
+}
+
+function onTouchStart(e) {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    const el = getBtnFromPoint(t.clientX, t.clientY);
+    if (!el) continue;
+    const name = el.dataset.btn;
+    touchButtonMap.set(t.identifier, name);
+    el.classList.add("active");
+    if (turboActive) {
+      startTurboRepeat(name);
+    } else {
+      pressButton(name);
+    }
+    vibrate(14);
+  }
+}
+
+function onTouchMove(e) {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    const prev = touchButtonMap.get(t.identifier);
+    const el = getBtnFromPoint(t.clientX, t.clientY);
+    const cur = el ? el.dataset.btn : null;
+
+    if (cur === prev) continue;
+
+    if (prev) {
+      const prevEl = document.querySelector(`[data-btn="${prev}"]`);
+      if (prevEl && (prev !== "circle" || !autoCircleActive)) prevEl.classList.remove("active");
+      stopTurboRepeat(prev);
+    }
+
+    if (cur) {
+      touchButtonMap.set(t.identifier, cur);
+      el.classList.add("active");
+      if (turboActive) {
+        startTurboRepeat(cur);
+      } else {
+        pressButton(cur);
+      }
+      vibrate(10);
+    } else {
+      touchButtonMap.delete(t.identifier);
+    }
+  }
+}
+
+function onTouchEnd(e) {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    const name = touchButtonMap.get(t.identifier);
+    if (name) {
+      const el = document.querySelector(`[data-btn="${name}"]`);
+      if (el && (name !== "circle" || !autoCircleActive)) el.classList.remove("active");
+      stopTurboRepeat(name);
+      touchButtonMap.delete(t.identifier);
+    }
+  }
+}
+
+allButtons.forEach(btn => {
+  btn.addEventListener("touchstart",  onTouchStart, { passive: false });
+  btn.addEventListener("touchmove",   onTouchMove,  { passive: false });
+  btn.addEventListener("touchend",    onTouchEnd,   { passive: false });
+  btn.addEventListener("touchcancel", onTouchEnd,   { passive: false });
+
+  // Desktop Mouse Support
+  btn.addEventListener("pointerdown", e => {
+    if (e.pointerType === "mouse") {
+      const name = btn.dataset.btn;
+      btn.classList.add("active");
+      if (turboActive) {
+        startTurboRepeat(name);
+      } else {
+        pressButton(name);
+      }
+    }
+  });
+  btn.addEventListener("pointerup", e => {
+    if (e.pointerType === "mouse") {
+      const name = btn.dataset.btn;
+      if (name !== "circle" || !autoCircleActive) btn.classList.remove("active");
+      stopTurboRepeat(name);
+    }
+  });
+  btn.addEventListener("pointerleave", e => {
+    if (e.pointerType === "mouse") {
+      const name = btn.dataset.btn;
+      if (name !== "circle" || !autoCircleActive) btn.classList.remove("active");
+      stopTurboRepeat(name);
+    }
+  });
+});
+
+/* Keyboard shortcuts for testing (O = Circle, T = Toggle Auto-O) */
+window.addEventListener("keydown", (e) => {
+  if (e.repeat) return;
+  const key = e.key.toLowerCase();
+  if (key === "o" || key === "k") {
+    if ($circleBtn) $circleBtn.classList.add("active");
+    if (turboActive) {
+      startTurboRepeat("circle");
+    } else {
+      pressButton("circle");
+    }
+  } else if (key === "t") {
+    toggleAutoCircle();
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  const key = e.key.toLowerCase();
+  if (key === "o" || key === "k") {
+    if ($circleBtn && !autoCircleActive) $circleBtn.classList.remove("active");
+    stopTurboRepeat("circle");
+  }
+});
+
+/* ===================================================================
+   SYMMETRICAL DUAL ANALOG STICKS (Left & Right)
+   =================================================================== */
+const stickTouches = { left: null, right: null };
+
+function getStickCenter(housing) {
+  const rect = housing.getBoundingClientRect();
+  return {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2,
+    radius: (rect.width - 55) / 2
+  };
+}
+
+function updateStick(side, dx, dy) {
+  const housing = side === "left" ? $stickLeft : $stickRight;
+  const knob    = side === "left" ? $knobLeft  : $knobRight;
+  const center  = getStickCenter(housing);
+  const maxR    = center.radius;
+
+  const dist = Math.hypot(dx, dy);
+  let clampedX = dx;
+  let clampedY = dy;
+
+  if (dist > maxR) {
+    clampedX = (dx / dist) * maxR;
+    clampedY = (dy / dist) * maxR;
+  }
+
+  knob.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+
+  let nx = clampedX / maxR;
+  let ny = -(clampedY / maxR);
+  if (invertY) ny = -ny;
+
+  // Deadzone filter
+  if (Math.abs(nx) < 0.05) nx = 0;
+  if (Math.abs(ny) < 0.05) ny = 0;
+
+  if (side === "left") {
+    state.a.lx = Math.round(nx * 1000) / 1000;
+    state.a.ly = Math.round(ny * 1000) / 1000;
+  } else {
+    state.a.rx = Math.round(nx * 1000) / 1000;
+    state.a.ry = Math.round(ny * 1000) / 1000;
+  }
+
+  scheduleSend();
+}
+
+function resetStick(side) {
+  const knob = side === "left" ? $knobLeft : $knobRight;
+  knob.style.transform = "translate(0px, 0px)";
+
+  if (side === "left") {
+    state.a.lx = 0.0;
+    state.a.ly = 0.0;
+  } else {
+    state.a.rx = 0.0;
+    state.a.ry = 0.0;
+  }
+
+  scheduleSend();
+}
+
+function handleStickTouchStart(side, e) {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    if (stickTouches[side] !== null) continue;
+    stickTouches[side] = t.identifier;
+    const housing = side === "left" ? $stickLeft : $stickRight;
+    const center = getStickCenter(housing);
+    updateStick(side, t.clientX - center.x, t.clientY - center.y);
+    vibrate(8);
+  }
+}
+
+function handleStickTouchMove(side, e) {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    if (t.identifier !== stickTouches[side]) continue;
+    const housing = side === "left" ? $stickLeft : $stickRight;
+    const center  = getStickCenter(housing);
+    updateStick(side, t.clientX - center.x, t.clientY - center.y);
+  }
+}
+
+function handleStickTouchEnd(side, e) {
+  e.preventDefault();
+  for (const t of e.changedTouches) {
+    if (t.identifier !== stickTouches[side]) continue;
+    stickTouches[side] = null;
+    resetStick(side);
+  }
+}
+
+[$stickLeft, $stickRight].forEach(zone => {
+  const side = zone.dataset.stick;
+  zone.addEventListener("touchstart",  e => handleStickTouchStart(side, e), { passive: false });
+  zone.addEventListener("touchmove",   e => handleStickTouchMove(side, e),  { passive: false });
+  zone.addEventListener("touchend",    e => handleStickTouchEnd(side, e),   { passive: false });
+  zone.addEventListener("touchcancel", e => handleStickTouchEnd(side, e),   { passive: false });
+});
+
+/* ===================================================================
+   FULLSCREEN TOGGLE & SCREEN WAKE LOCK
+   =================================================================== */
+$fsBtn.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+});
+
+if ($invertYBtn) {
+  $invertYBtn.addEventListener("click", () => {
+    invertY = !invertY;
+    $invertYBtn.classList.toggle("active", invertY);
+    vibrate(20);
+  });
+}
+
+async function keepAwake() {
+  try {
+    if ("wakeLock" in navigator) await navigator.wakeLock.request("screen");
+  } catch(e){}
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") keepAwake();
+});
+keepAwake();
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+/* Service Worker for PWA */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
+/* Boot */
+connect();
+</script>
+</body>
+</html>

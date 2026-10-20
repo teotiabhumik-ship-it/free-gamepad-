@@ -1,0 +1,6 @@
+{
+  "github_repo": "user/remote-gamepad",
+  "auto_check_on_startup": true,
+  "check_interval_hours": 24,
+  "custom_manifest_url": ""
+}
