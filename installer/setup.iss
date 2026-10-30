@@ -2,7 +2,7 @@
 ; Generates a clean Windows installer with desktop & start menu shortcuts
 
 #define MyAppName "Remote Gamepad"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Bhumik"
 #define MyAppURL "https://github.com/teotiabhumik-ship-it/free-gamepad-"
 #define MyAppExeName "RemoteGamepadReceiver.exe"

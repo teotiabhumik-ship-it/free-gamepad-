@@ -1,13 +1,12 @@
 {
-  "version": "1.0.0",
-  "release_date": "2026-10-20",
+  "version": "1.0.1",
+  "release_date": "2026-10-30",
   "download_url": "https://github.com/teotiabhumik-ship-it/free-gamepad-/releases/latest/download/RemoteGamepadReceiver.exe",
   "changelog": [
-    "Initial Release with DualShock 2 authentic layout",
-    "Dedicated AUTO-O rapid fire button",
-    "Invert-Y toggle and zero-config internet tunnel",
-    "Strict 1-User limit with Player 1 Kick control",
-    "Built-in 1-click Windows Auto-Updater"
+    "Added God of War III Chamber of the Flame Harp Puzzle Assistant (🏛️ GOW3 Harp Mode)",
+    "Added 1-Tap Smart Note button that auto-advances through all 25 notes",
+    "Added dedicated [□+✕] and [△+○] dual-combo buttons for phone touch screens",
+    "Real-time note queue preview and step-reset button"
   ],
   "mandatory": false
 }

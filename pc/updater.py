@@ -16,7 +16,7 @@ import urllib.error
 import urllib.request
 from typing import Callable, Dict, Optional, Tuple
 
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.0.1"
 
 # Default GitHub repository
 DEFAULT_CONFIG = {

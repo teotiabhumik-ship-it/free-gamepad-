@@ -31,7 +31,7 @@ except ImportError:
     try:
         from pc.updater import UpdateChecker, APP_VERSION, UpdateInfo
     except ImportError:
-        APP_VERSION = "1.0.0"
+        APP_VERSION = "1.0.1"
         UpdateChecker = None
         UpdateInfo = None
 

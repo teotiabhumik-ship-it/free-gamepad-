@@ -562,6 +562,239 @@ html, body {
   box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
 }
 
+/* ===================================================================
+   GOD OF WAR 3 HARP PUZZLE ASSISTANT (Center Dock & Dual Combos)
+   =================================================================== */
+.gow-dock {
+  position: fixed;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(460px, 66vw);
+  background: rgba(4, 12, 24, 0.95);
+  border: 1.5px solid #00d4ff;
+  border-radius: 16px;
+  padding: 8px 12px 10px;
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.35), inset 0 0 16px rgba(0, 153, 230, 0.12);
+  z-index: 150;
+  display: none;
+  flex-direction: column;
+  gap: 7px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.gow-dock.visible {
+  display: flex;
+  animation: gowPop 0.22s ease-out;
+}
+@keyframes gowPop {
+  from { opacity: 0; transform: translate(-50%, -10px) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+.gow-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  padding-bottom: 5px;
+}
+.gow-header-title {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: #00d4ff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.gow-step-info {
+  font-size: 11px;
+  font-weight: 800;
+  color: #cbd5e1;
+}
+.gow-header-actions {
+  display: flex;
+  gap: 6px;
+}
+.gow-ctrl-btn {
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: #00d4ff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.gow-ctrl-btn:active {
+  background: #00d4ff;
+  color: #000;
+  transform: scale(0.95);
+}
+
+.gow-cards-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.gow-cur-card {
+  flex: 1.2;
+  background: #091222;
+  border: 1.5px solid #0099e6;
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: inset 0 0 10px rgba(0, 153, 230, 0.2);
+  min-height: 42px;
+}
+.gow-cur-label {
+  font-size: 9px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+.gow-cur-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+}
+.gow-dual-tag {
+  font-size: 8px;
+  background: #ff0055;
+  color: #ffffff;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 6px rgba(255, 0, 85, 0.6);
+}
+
+.gow-queue-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.gow-queue-label {
+  font-size: 8px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+.gow-queue-pills {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.gow-pill {
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #0d1626;
+  border: 1px solid #1e293b;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+}
+
+/* Big Smart Next Note Button */
+.gow-tap-btn {
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(135deg, #0088cc 0%, #0044aa 100%);
+  border: 2px solid #00e5ff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  transition: transform 0.05s ease, filter 0.05s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.gow-tap-btn:active, .gow-tap-btn.tap-active {
+  transform: scale(0.97);
+  filter: brightness(1.3);
+  box-shadow: 0 0 28px rgba(0, 229, 255, 0.8), inset 0 0 12px rgba(255, 255, 255, 0.6);
+}
+.gow-tap-btn-icon {
+  font-size: 18px;
+  animation: zap 1s infinite alternate;
+}
+@keyframes zap {
+  from { transform: scale(1); filter: drop-shadow(0 0 2px #fff); }
+  to { transform: scale(1.15); filter: drop-shadow(0 0 6px #00e5ff); }
+}
+.gow-tap-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+}
+.gow-tap-btn-title {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.gow-tap-btn-sub {
+  font-size: 9px;
+  font-weight: 700;
+  color: #a5f3fc;
+  letter-spacing: 0.5px;
+}
+
+/* Dedicated Dual Combo Buttons (Right Wing) */
+.gow-combo-row {
+  position: absolute;
+  right: calc(2% + (var(--box-size) * 0.2));
+  top: calc(45% - var(--box-size) - 48px);
+  display: none;
+  gap: 8px;
+  z-index: 80;
+}
+.gow-combo-row.visible {
+  display: flex;
+}
+.gow-combo-btn {
+  background: rgba(6, 14, 28, 0.92);
+  border: 1.5px solid #00d4ff;
+  border-radius: 10px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.35);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.05s, background 0.05s;
+}
+.gow-combo-btn:active, .gow-combo-btn.active {
+  background: rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.8);
+  transform: scale(0.95);
+}
+.gow-combo-text {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
 /* Reconnecting Overlay */
 .overlay {
   position: fixed;
@@ -598,10 +831,48 @@ html, body {
   <span id="statusText">Connecting…</span>
 </div>
 
-<!-- Bottom Control Bar (Fullscreen & Invert Y) -->
+<!-- Bottom Control Bar (Fullscreen, Invert Y & GOW3 Harp) -->
 <div class="bottom-bar">
   <button class="bottom-bar-btn" id="fsBtn" title="Fullscreen">⛶</button>
   <button class="bottom-bar-btn" id="invertYBtn" title="Toggle Invert Y-Axis">⇅ Invert Y</button>
+  <button class="bottom-bar-btn" id="gowHarpBtn" title="God of War 3 Harp Puzzle Mode">🏛️ GOW3 Harp</button>
+</div>
+
+<!-- GOW 3 Harp Puzzle Assistant Dock -->
+<div class="gow-dock" id="gowDock">
+  <div class="gow-header-row">
+    <span class="gow-header-title">🏛️ GOW3 HARP PUZZLE</span>
+    <span class="gow-step-info" id="gowStepInfo">Note 1 of 25</span>
+    <div class="gow-header-actions">
+      <button class="gow-ctrl-btn" id="gowPrevBtn" title="Previous Note">◀</button>
+      <button class="gow-ctrl-btn" id="gowResetBtn" title="Reset to Note 1">↺ Reset</button>
+      <button class="gow-ctrl-btn" id="gowNextBtn" title="Skip to Next Note">▶</button>
+    </div>
+  </div>
+  <div class="gow-cards-row">
+    <div class="gow-cur-card">
+      <div>
+        <div class="gow-cur-label">CURRENT NOTE</div>
+        <div class="gow-cur-badge" id="gowCurBadge">
+          <span id="gowCurGlyph">✕</span>
+          <span id="gowCurName">CROSS</span>
+          <span class="gow-dual-tag" id="gowDualTag" style="display:none;">DUAL!</span>
+        </div>
+      </div>
+    </div>
+    <div class="gow-queue-wrap">
+      <div class="gow-queue-label">UPCOMING</div>
+      <div class="gow-queue-pills" id="gowQueuePills"></div>
+    </div>
+  </div>
+  <!-- Big Smart Tap Button -->
+  <div class="gow-tap-btn" id="gowTapBtn">
+    <span class="gow-tap-btn-icon">⚡</span>
+    <div class="gow-tap-text-group">
+      <span class="gow-tap-btn-title">TAP FOR NEXT NOTE</span>
+      <span class="gow-tap-btn-sub" id="gowTapBtnSub">Tap when symbol hits the gold ring</span>
+    </div>
+  </div>
 </div>
 
 <!-- Connection Overlay -->
@@ -682,6 +953,20 @@ html, body {
     <!-- START Button -->
     <div class="cyan-box btn-start" data-btn="start">
       <div class="start-wedge">START</div>
+    </div>
+
+    <!-- GOW3 Dedicated Dual-Combo Buttons -->
+    <div class="gow-combo-row" id="gowComboRow">
+      <div class="gow-combo-btn" data-combo="square,cross" id="gowComboSqCross" title="Press Square + Cross together">
+        <span class="gow-combo-text" style="color:var(--ps-square);">□</span>
+        <span style="color:#64748b;font-weight:900;">+</span>
+        <span class="gow-combo-text" style="color:var(--ps-cross);">✕</span>
+      </div>
+      <div class="gow-combo-btn" data-combo="triangle,circle" id="gowComboTriCircle" title="Press Triangle + Circle together">
+        <span class="gow-combo-text" style="color:var(--ps-triangle);">△</span>
+        <span style="color:#64748b;font-weight:900;">+</span>
+        <span class="gow-combo-text" style="color:var(--ps-circle);">○</span>
+      </div>
     </div>
 
     <!-- PlayStation Action Buttons (△ ○ ✕ □) -->
@@ -1163,10 +1448,233 @@ allButtons.forEach(btn => {
   });
 });
 
-/* Keyboard shortcuts for testing (O = Circle, T = Toggle Auto-O) */
+/* ===================================================================
+   GOD OF WAR 3 HARP PUZZLE ASSISTANT ENGINE
+   =================================================================== */
+const GOW3_HARP_SEQUENCE = [
+  { id: 1,  buttons: ["cross"],            symbol: "✕", label: "CROSS",            desc: "Single Note", color: "var(--ps-cross)",    glow: "#4a90e2" },
+  { id: 2,  buttons: ["cross"],            symbol: "✕", label: "CROSS",            desc: "Single Note", color: "var(--ps-cross)",    glow: "#4a90e2" },
+  { id: 3,  buttons: ["cross"],            symbol: "✕", label: "CROSS",            desc: "Single Note", color: "var(--ps-cross)",    glow: "#4a90e2" },
+  { id: 4,  buttons: ["circle"],           symbol: "○", label: "CIRCLE",           desc: "Single Note", color: "var(--ps-circle)",   glow: "#e63946" },
+  { id: 5,  buttons: ["square"],           symbol: "□", label: "SQUARE",           desc: "Single Note", color: "var(--ps-square)",   glow: "#c850c0" },
+  { id: 6,  buttons: ["circle"],           symbol: "○", label: "CIRCLE",           desc: "Single Note", color: "var(--ps-circle)",   glow: "#e63946" },
+  { id: 7,  buttons: ["square"],           symbol: "□", label: "SQUARE",           desc: "Single Note", color: "var(--ps-square)",   glow: "#c850c0" },
+  { id: 8,  buttons: ["cross"],            symbol: "✕", label: "CROSS",            desc: "Single Note", color: "var(--ps-cross)",    glow: "#4a90e2" },
+  { id: 9,  buttons: ["triangle"],         symbol: "△", label: "TRIANGLE",         desc: "Single Note", color: "var(--ps-triangle)", glow: "#2ee68a" },
+  { id: 10, buttons: ["square"],           symbol: "□", label: "SQUARE",           desc: "Single Note", color: "var(--ps-square)",   glow: "#c850c0" },
+  { id: 11, buttons: ["circle"],           symbol: "○", label: "CIRCLE",           desc: "Single Note", color: "var(--ps-circle)",   glow: "#e63946" },
+  { id: 12, buttons: ["triangle"],         symbol: "△", label: "TRIANGLE",         desc: "Single Note", color: "var(--ps-triangle)", glow: "#2ee68a" },
+  { id: 13, buttons: ["square", "cross"],  symbol: "□ + ✕", label: "SQUARE + CROSS",desc: "DUAL NOTE!", color: "#d946ef", glow: "#d946ef", isDual: true },
+  { id: 14, buttons: ["square"],           symbol: "□", label: "SQUARE",           desc: "Single Note", color: "var(--ps-square)",   glow: "#c850c0" },
+  { id: 15, buttons: ["triangle"],         symbol: "△", label: "TRIANGLE",         desc: "Single Note", color: "var(--ps-triangle)", glow: "#2ee68a" },
+  { id: 16, buttons: ["square", "cross"],  symbol: "□ + ✕", label: "SQUARE + CROSS",desc: "DUAL NOTE!", color: "#d946ef", glow: "#d946ef", isDual: true },
+  { id: 17, buttons: ["triangle"],         symbol: "△", label: "TRIANGLE",         desc: "Single Note", color: "var(--ps-triangle)", glow: "#2ee68a" },
+  { id: 18, buttons: ["triangle", "circle"], symbol: "△ + ○", label: "TRIANGLE + CIRCLE", desc: "DUAL NOTE!", color: "#f59e0b", glow: "#f59e0b", isDual: true },
+  { id: 19, buttons: ["triangle", "circle"], symbol: "△ + ○", label: "TRIANGLE + CIRCLE", desc: "DUAL NOTE!", color: "#f59e0b", glow: "#f59e0b", isDual: true },
+  { id: 20, buttons: ["cross"],            symbol: "✕", label: "CROSS",            desc: "Single Note", color: "var(--ps-cross)",    glow: "#4a90e2" },
+  { id: 21, buttons: ["square"],           symbol: "□", label: "SQUARE",           desc: "Single Note", color: "var(--ps-square)",   glow: "#c850c0" },
+  { id: 22, buttons: ["square", "cross"],  symbol: "□ + ✕", label: "SQUARE + CROSS",desc: "DUAL NOTE!", color: "#d946ef", glow: "#d946ef", isDual: true },
+  { id: 23, buttons: ["circle"],           symbol: "○", label: "CIRCLE",           desc: "Single Note", color: "var(--ps-circle)",   glow: "#e63946" },
+  { id: 24, buttons: ["triangle"],         symbol: "△", label: "TRIANGLE",         desc: "Single Note", color: "var(--ps-triangle)", glow: "#2ee68a" },
+  { id: 25, buttons: ["triangle", "circle"], symbol: "△ + ○", label: "TRIANGLE + CIRCLE", desc: "FINAL NOTE!", color: "#f59e0b", glow: "#f59e0b", isDual: true }
+];
+
+let gowHarpActive = false;
+let gowCurrentStep = 0;
+
+const $gowHarpBtn    = document.getElementById("gowHarpBtn");
+const $gowDock       = document.getElementById("gowDock");
+const $gowComboRow   = document.getElementById("gowComboRow");
+const $gowStepInfo   = document.getElementById("gowStepInfo");
+const $gowCurGlyph   = document.getElementById("gowCurGlyph");
+const $gowCurName    = document.getElementById("gowCurName");
+const $gowDualTag    = document.getElementById("gowDualTag");
+const $gowQueuePills = document.getElementById("gowQueuePills");
+const $gowTapBtn     = document.getElementById("gowTapBtn");
+const $gowTapBtnSub  = document.getElementById("gowTapBtnSub");
+const $gowPrevBtn    = document.getElementById("gowPrevBtn");
+const $gowResetBtn   = document.getElementById("gowResetBtn");
+const $gowNextBtn    = document.getElementById("gowNextBtn");
+
+function toggleGowHarp() {
+  gowHarpActive = !gowHarpActive;
+  $gowHarpBtn.classList.toggle("active", gowHarpActive);
+  $gowDock.classList.toggle("visible", gowHarpActive);
+  if ($gowComboRow) $gowComboRow.classList.toggle("visible", gowHarpActive);
+  vibrate(25);
+  if (gowHarpActive) {
+    updateGowHarpUI();
+  }
+}
+
+if ($gowHarpBtn) {
+  $gowHarpBtn.addEventListener("click", toggleGowHarp);
+}
+
+function updateGowHarpUI() {
+  if (gowCurrentStep >= GOW3_HARP_SEQUENCE.length) {
+    $gowStepInfo.textContent = "25 / 25 (DONE!)";
+    $gowCurGlyph.textContent = "🏆";
+    $gowCurGlyph.style.color = "#ffd700";
+    $gowCurGlyph.style.filter = "drop-shadow(0 0 10px #ffd700)";
+    $gowCurName.textContent = "PUZZLE CLEARED!";
+    $gowCurName.style.color = "#ffd700";
+    $gowDualTag.style.display = "none";
+    $gowQueuePills.innerHTML = '<span style="color:#2ee68a;font-size:10px;font-weight:900;">SUCCESS!</span>';
+    $gowTapBtnSub.textContent = "Tap to restart sequence from Note 1";
+    return;
+  }
+
+  const cur = GOW3_HARP_SEQUENCE[gowCurrentStep];
+  $gowStepInfo.textContent = `Note ${cur.id} of 25`;
+  $gowCurGlyph.textContent = cur.symbol;
+  $gowCurGlyph.style.color = cur.color;
+  $gowCurGlyph.style.filter = `drop-shadow(0 0 6px ${cur.glow})`;
+  $gowCurName.textContent = cur.label;
+  $gowCurName.style.color = cur.color;
+
+  if (cur.isDual) {
+    $gowDualTag.style.display = "inline-block";
+    $gowDualTag.textContent = cur.id === 25 ? "FINAL NOTE!" : "DUAL NOTE!";
+  } else {
+    $gowDualTag.style.display = "none";
+  }
+
+  $gowTapBtnSub.textContent = cur.isDual
+    ? "Simultaneous DUAL note! Tap when symbol hits ring"
+    : "Tap when symbol hits the gold ring";
+
+  // Render upcoming 3 notes
+  let queueHtml = "";
+  for (let i = 1; i <= 3; i++) {
+    const nextIdx = gowCurrentStep + i;
+    if (nextIdx < GOW3_HARP_SEQUENCE.length) {
+      const n = GOW3_HARP_SEQUENCE[nextIdx];
+      queueHtml += `<span class="gow-pill" style="color:${n.color};border-color:${n.color};">${n.symbol}</span>`;
+    }
+  }
+  $gowQueuePills.innerHTML = queueHtml || '<span style="color:#64748b;font-size:9px;">End of song</span>';
+}
+
+function playGowHarpStep() {
+  if (gowCurrentStep >= GOW3_HARP_SEQUENCE.length) {
+    gowCurrentStep = 0;
+    updateGowHarpUI();
+    return;
+  }
+
+  const cur = GOW3_HARP_SEQUENCE[gowCurrentStep];
+  vibrate(28);
+
+  // Button flash animation
+  $gowTapBtn.classList.add("tap-active");
+  setTimeout(() => $gowTapBtn.classList.remove("tap-active"), 120);
+
+  // Press all required buttons (supports simultaneous dual inputs)
+  cur.buttons.forEach(btnName => {
+    pressButton(btnName);
+    const btnEl = document.querySelector(`[data-btn="${btnName}"]`);
+    if (btnEl) {
+      btnEl.classList.add("active");
+      setTimeout(() => btnEl.classList.remove("active"), 120);
+    }
+  });
+
+  // Hold briefly so emulator/game registers the hit (120ms), then release
+  setTimeout(() => {
+    cur.buttons.forEach(btnName => releaseButton(btnName));
+  }, 120);
+
+  gowCurrentStep++;
+  updateGowHarpUI();
+}
+
+// Attach tap to Smart Button
+if ($gowTapBtn) {
+  $gowTapBtn.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    playGowHarpStep();
+  });
+}
+
+// Reset button
+if ($gowResetBtn) {
+  $gowResetBtn.addEventListener("click", () => {
+    gowCurrentStep = 0;
+    vibrate(15);
+    updateGowHarpUI();
+  });
+}
+
+// Step backward
+if ($gowPrevBtn) {
+  $gowPrevBtn.addEventListener("click", () => {
+    if (gowCurrentStep > 0) {
+      gowCurrentStep--;
+      vibrate(10);
+      updateGowHarpUI();
+    }
+  });
+}
+
+// Step forward
+if ($gowNextBtn) {
+  $gowNextBtn.addEventListener("click", () => {
+    if (gowCurrentStep < GOW3_HARP_SEQUENCE.length) {
+      gowCurrentStep++;
+      vibrate(10);
+      updateGowHarpUI();
+    }
+  });
+}
+
+// Dedicated Dual-Combo Touch Buttons ([□+✕] and [△+○])
+document.querySelectorAll("[data-combo]").forEach(comboEl => {
+  const targets = comboEl.dataset.combo.split(",");
+
+  const onComboDown = (e) => {
+    e.preventDefault();
+    comboEl.classList.add("active");
+    targets.forEach(b => {
+      pressButton(b);
+      const bEl = document.querySelector(`[data-btn="${b}"]`);
+      if (bEl) bEl.classList.add("active");
+    });
+    vibrate(22);
+  };
+
+  const onComboUp = (e) => {
+    e.preventDefault();
+    comboEl.classList.remove("active");
+    targets.forEach(b => {
+      releaseButton(b);
+      const bEl = document.querySelector(`[data-btn="${b}"]`);
+      if (bEl) bEl.classList.remove("active");
+    });
+  };
+
+  comboEl.addEventListener("touchstart",  onComboDown, { passive: false });
+  comboEl.addEventListener("touchend",    onComboUp,   { passive: false });
+  comboEl.addEventListener("touchcancel", onComboUp,   { passive: false });
+  comboEl.addEventListener("pointerdown", onComboDown);
+  comboEl.addEventListener("pointerup",   onComboUp);
+  comboEl.addEventListener("pointerleave",onComboUp);
+});
+
+/* Keyboard shortcuts for testing (O = Circle, T = Toggle Auto-O, Space/G = GOW Harp Step) */
 window.addEventListener("keydown", (e) => {
   if (e.repeat) return;
   const key = e.key.toLowerCase();
+  if (gowHarpActive && (key === " " || key === "enter" || key === "g")) {
+    e.preventDefault();
+    playGowHarpStep();
+    return;
+  }
+  if (gowHarpActive && key === "r") {
+    gowCurrentStep = 0;
+    updateGowHarpUI();
+    return;
+  }
   if (key === "o" || key === "k") {
     if ($circleBtn) $circleBtn.classList.add("active");
     if (turboActive) {
